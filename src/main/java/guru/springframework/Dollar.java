@@ -4,7 +4,7 @@ package guru.springframework;
  * Created by Rami SAHRAOUI on 05/11/2023
  */
 public class Dollar {
-    public int amount;
+    private int amount;
 
     public Dollar(int amount) {
         this.amount = amount;
