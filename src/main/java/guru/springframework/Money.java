@@ -3,7 +3,7 @@ package guru.springframework;
 /**
  * Created by Rami SAHRAOUI on 05/11/2023
  */
-public abstract class Money {
+public class Money {
     protected int amount;
 
     protected String currency;
@@ -21,7 +21,6 @@ public abstract class Money {
         return new Franc(amount, "CHF");
     }
 
-    public abstract Money times(int multiplier);
 
     public  String currency() {
         return this.currency;
@@ -31,6 +30,18 @@ public abstract class Money {
     public boolean equals(Object obj) {
         Money money = (Money) obj;
         return amount == money.amount
-                && this.getClass().equals(obj.getClass());
+                && this.currency.equals(money.currency);
+    }
+
+    @Override
+    public String toString() {
+        return "Money{" +
+                "amount=" + amount +
+                ", currency='" + currency + '\'' +
+                '}';
+    }
+
+    public Money times(int multiplier) {
+        return new Money(amount * multiplier, this.currency);
     }
 }
