@@ -6,9 +6,9 @@ import java.util.Objects;
  * Created by Rami SAHRAOUI on 05/11/2023
  */
 public class Money implements Expression {
-    protected int amount;
+    protected final int amount;
 
-    protected String currency;
+    protected final String currency;
 
     public Money(int amount, String currency) {
         this.amount = amount;
