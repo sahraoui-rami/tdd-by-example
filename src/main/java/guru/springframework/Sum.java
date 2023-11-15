@@ -4,24 +4,30 @@ package guru.springframework;
  * Created by Rami SAHRAOUI on 14/11/2023
  */
 public class Sum implements Expression {
-    private final Money augend;
-    private final Money addend;
+    private final Expression augend;
+    private final Expression addend;
 
-    public Sum(Money augend, Money addend) {
+    public Sum(Expression augend, Expression addend) {
         this.augend = augend;
         this.addend = addend;
     }
 
     public Money reduce(Bank bank, String toCurrency) {
-        int amount = augend.amount + addend.amount;
+        int amount = augend.reduce(bank, toCurrency).amount
+                + addend.reduce(bank, toCurrency).amount;
         return new Money(amount, toCurrency);
     }
 
-    public Money getAugend() {
+    @Override
+    public Expression plus(Expression addend) {
+        return null;
+    }
+
+    public Expression getAugend() {
         return augend;
     }
 
-    public Money getAddend() {
+    public Expression getAddend() {
         return addend;
     }
 }
