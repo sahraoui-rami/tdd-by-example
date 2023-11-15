@@ -1,5 +1,7 @@
 package guru.springframework;
 
+import java.util.Objects;
+
 /**
  * Created by Rami SAHRAOUI on 05/11/2023
  */
@@ -27,10 +29,16 @@ public class Money implements Expression {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        Money money = (Money) obj;
-        return amount == money.amount
-                && this.currency.equals(money.currency);
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Money money = (Money) o;
+        return amount == money.amount && Objects.equals(currency, money.currency);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(amount, currency);
     }
 
     @Override
@@ -50,7 +58,8 @@ public class Money implements Expression {
     }
 
     @Override
-    public Money reduce(String toCurrency) {
-        return this;
+    public Money reduce(Bank bank, String toCurrency) {
+        int rate = bank.rate(currency, toCurrency);
+        return new Money(amount / rate, toCurrency);
     }
 }
